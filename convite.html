@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Convite Misterioso 🎭</title>
+  <style>
+    body {
+      background: url('https://images.unsplash.com/photo-1602407294553-6d3f4cf8a4a3') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Courier New', monospace;
+      color: #f8f8f2;
+      text-align: center;
+      padding-top: 100px;
+      user-select: none;
+      
+    }
+
+    .box {
+      background: rgba(20, 20, 20, 0.92);
+      padding: 30px 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 25px #f0c93a, 0 0 10px #7c7cff inset;
+      border: 2px dashed #f0c93a;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+      color: #f0c93a;
+      text-shadow: 0 0 10px #7c7cff;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      color: #ffffffcc;
+    }
+
+    button {
+      background-color: #7c7cff;
+      border: none;
+      padding: 12px 28px;
+      margin: 12px;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(124, 124, 255, 0.6);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    button:hover {
+      background-color: #5858d6;
+      box-shadow: 0 6px 14px rgba(88, 88, 214, 0.9);
+    }
+
+    .nao {
+      background-color: #222;
+      color: #f0c93a;
+      border: 1px solid #f0c93a;
+    }
+
+    .nao:hover {
+      background-color: #111;
+      color: white;
+    }
+
+    .escondido {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .aparecer-magicamente {
+      animation: aparecer 1.5s forwards ease-in-out;
+    }
+
+    @keyframes aparecer {
+      0% {
+        opacity: 0;
+        transform: scale(0.85) rotate(-4deg);
+        filter: brightness(2) drop-shadow(0 0 5px #f0c93a);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1) drop-shadow(0 0 15px #f0c93a);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box" id="convite"></div>
+
+  <script>
+    const conviteDiv = document.getElementById('convite');
+    let musica = null;
+
+    function telaConvite() {
+      conviteDiv.innerHTML = `
+        <h1>Convite Irrecusável 🎭</h1>
+        <p>Topa ir comigo ao show do Whindersson Nunes?</p>
+        <p>Prometo boas risadas, companhia incrível (eu, claro) e um lanche depois 😏</p>
+        <button onclick="telaConfirmacao()">Sim, bora rir juntos!</button>
+        <button class="nao" onmouseover="fugir(this)" onclick="feiticoDoDestino(telaConvite)">Não, tô tímida</button>
+      `;
+    }
+
+    function telaConfirmacao() {
+    
+      conviteDiv.innerHTML = `
+        <h1>Gostaria de te conhecer melhor, que tal? 🤔</h1>
+        <p>Última chance de recuar... ou clicar no botão mágico e selar nosso rolê secreto!</p>
+        <button id="btn-sim" class="escondido" onclick="linkIngresso()">Vamo nessa!</button>
+        <button class="nao" onmouseover="fugir(this)" onclick="feiticoDoDestino(telaConfirmacao)">Me deu nervoso</button>
+      `;
+
+      setTimeout(() => {
+        const btnSim = document.getElementById('btn-sim');
+        btnSim.classList.remove('escondido');
+        btnSim.classList.add('aparecer-magicamente');
+      }, 3000);
+    }
+
+    function linkIngresso() {
+      if (musica) musica.pause();
+      conviteDiv.innerHTML = `
+        <h1>Perfeito! 😎</h1>
+        <p>Agora é só garantir os ingressos, preparar o estômago e o <span style="color: #f06; font-weight: bold;">coração ❤️</span>.</p>
+        <p><a href="https://ingressodigital.com/evento/16079/whindersson-nunes-isso-definitivamente-nao-e-um-culto" target="_blank" style="color: #f0c93a; text-decoration: underline; font-weight: bold;">Clique aqui para garantir a diversão comigo! 🎟️</a></p>
+      `;
+    }
+
+    function feiticoDoDestino(telaAnterior) {
+      alert('O universo te deu uma segunda chance... reconsidera aí! 🪄');
+      telaAnterior();
+    }
+
+    function fugir(botao) {
+      const maxX = 400;
+      const maxY = 300;
+      const randomX = Math.floor(Math.random() * maxX) - maxX / 2;
+      const randomY = Math.floor(Math.random() * maxY) - maxY / 2;
+      botao.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    telaConvite();
+  </script>
+</body>
+</html>
